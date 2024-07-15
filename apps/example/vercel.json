@@ -2,8 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/entry-server.js",
-      "use": "@vercel/node"
+      "src": "api/entry-server.js"
     }
   ],
   "routes": [
