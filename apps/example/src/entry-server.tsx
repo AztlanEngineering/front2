@@ -3,6 +3,9 @@ import React from 'react';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import App from './App';
 // import { StaticRouter } from 'react-router-dom/server';
+// 
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
 
 export const config = {
   runtime: 'edge', // this is a pre-requisite
