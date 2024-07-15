@@ -66,9 +66,7 @@ function App() {
 
 // [REF 1.1]
 // import { StaticRouter } from 'react-router-dom/server';
-const config = {
-    runtime: 'edge'
-};
+const runtime = 'edge';
 async function Handler(req) {
     let didError = false;
     const stream = await renderToReadableStream(/*#__PURE__*/ jsx(App, {}), {
@@ -86,4 +84,4 @@ async function Handler(req) {
     });
 }
 
-export { config, Handler as default };
+export { Handler as default, runtime };
