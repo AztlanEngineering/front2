@@ -1,0 +1,13 @@
+dist
+node_modules
+storybook-static
+tmp
+
+apps/**/public
+apps/**/api
+
+.env
+.env.prod
+.env.scripts
+
+lerna-debug.log

@@ -1,0 +1,27 @@
+{
+  "jsc": {
+    "experimental": {
+      "plugins": [
+        [
+          "@swc/plugin-relay",
+          {
+            "rootDir": ".",
+            "artifactDirectory": "src/__generated__",
+            "language": "typescript",
+            "eagerEsModules": true
+          }
+        ]
+      ]
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    }
+  }
+}
+
