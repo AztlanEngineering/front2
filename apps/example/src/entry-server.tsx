@@ -4,6 +4,9 @@ import { renderToReadableStream } from 'react-dom/server.browser';
 import App from './App';
 // import { StaticRouter } from 'react-router-dom/server';
 
+export const config = {
+  runtime: 'edge',
+};
 
 export default async function Handler(req: Request) {
   let didError = false;
