@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/entry-server.js": {
+      "runtime": "@vercel/edge"
+    }
+  },
   "routes": [
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/api/entry-server.js" }
