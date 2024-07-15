@@ -1,6 +1,32 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/api/entry-server.js" }
-  ]
-}
+   "routes":[
+     {
+       "src":"/sitemap.xml",
+       "dest":"/api/sitemap.js",
+       "headers": {
+         "cache-control": "s-maxage=1800, max-age=1800"
+       }
+     },
+     {
+       "src":"/(?<fn>[-A-Za-z0-9~.\/_]+)[.](?<ext>(png|jpg|woff|woff2|otf|eot|ttf|ico|svg|glb|xml|txt|webp|mdx))",
+       "dest":"/$fn.$ext",
+       "headers": {
+         "cache-control": "s-maxage=86400, max-age=86400, stale-while-revalidate"
+       }
+     },
+     {
+       "src":"/(?<fn>[-A-Za-z0-9-~.\/_]+)[.](?<ext>(js|css|map))",
+       "dest":"/$fn.$ext",
+       "headers": {
+         "cache-control": "s-maxage=86400, max-age=86400, stale-while-revalidate"
+       }
+     },
+     {
+       "src":"/.*",
+       "dest":"/api/ssr.js",
+       "headers": {
+         "cache-control": "s-maxage=7200, max-age=86400, stale-while-revalidate"
+       }
+     }
+   ]
+ }
