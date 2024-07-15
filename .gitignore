@@ -4,7 +4,7 @@ storybook-static
 tmp
 
 #apps/**/public
-apps/**/api
+#apps/**/api
 
 .env
 .env.prod
