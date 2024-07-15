@@ -1,10 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/entry-server.js"
+  "functions": {
+    "api/entry-server.js": {
+      "runtime": "edge"
     }
-  ],
+  },
   "routes": [
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/api/entry-server.js" }
