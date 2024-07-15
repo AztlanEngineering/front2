@@ -1,33 +1,11 @@
-// [REF 1.1]
-import React from 'react';
-import { renderToReadableStream } from 'react-dom/server.browser';
-import App from './App';
-// import { StaticRouter } from 'react-router-dom/server';
-//
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-
 export const config = {
-  runtime: 'edge', // this is a pre-requisite
+  runtime: 'edge', // this must be set to `edge`
+  // execute this function on iad1 or hnd1, based on the connecting client location
+  regions: ['iad1', 'hnd1'],
 };
 
-export default async function Handler(req: Request) {
-  let didError = false;
-
-  const stream = await renderToReadableStream(<App
-  //  req={req}
-  />, {
-    onError(err: unknown) {
-      didError = true;
-      console.error(err);
-    },
-  });
-
-
-  console.log('stream', stream);
-
-  return new Response(stream, {
-    status: didError ? 500 : 200,
-    headers: { 'Content-Type': 'text/html' },
+export default function handler(request, response) {
+  return response.status(200).json({
+    text: `I am an Edge Function! (executed on ${process.env.VERCEL_REGION})`,
   });
 }
