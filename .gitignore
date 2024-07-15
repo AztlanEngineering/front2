@@ -3,7 +3,7 @@ node_modules
 storybook-static
 tmp
 
-apps/**/public
+#apps/**/public
 apps/**/api
 
 .env
