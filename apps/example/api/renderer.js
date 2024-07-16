@@ -1,68 +1,6 @@
-import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
-import { useState } from 'react';
-import { renderToPipeableStream } from 'react-dom/server';
-
-const reactLogo = "/assets/react-CHdo91hT.svg";
-
-const viteLogo = "/vite.svg";
-
-function App() {
-    const [count, setCount] = useState(0);
-    return /*#__PURE__*/ jsxs(Fragment, {
-        children: [
-            /*#__PURE__*/ jsxs("div", {
-                children: [
-                    /*#__PURE__*/ jsx("a", {
-                        href: "https://vitejs.dev",
-                        target: "_blank",
-                        children: /*#__PURE__*/ jsx("img", {
-                            src: viteLogo,
-                            className: "logo",
-                            alt: "Vite logo"
-                        })
-                    }),
-                    /*#__PURE__*/ jsx("a", {
-                        href: "https://react.dev",
-                        target: "_blank",
-                        children: /*#__PURE__*/ jsx("img", {
-                            src: reactLogo,
-                            className: "logo react",
-                            alt: "React logo"
-                        })
-                    })
-                ]
-            }),
-            /*#__PURE__*/ jsx("h1", {
-                children: "Vite + React"
-            }),
-            /*#__PURE__*/ jsxs("div", {
-                className: "card",
-                children: [
-                    /*#__PURE__*/ jsxs("button", {
-                        onClick: ()=>setCount((count)=>count + 1),
-                        children: [
-                            "count is ",
-                            count
-                        ]
-                    }),
-                    /*#__PURE__*/ jsxs("p", {
-                        children: [
-                            "Edit ",
-                            /*#__PURE__*/ jsx("code", {
-                                children: "src/App.jsx"
-                            }),
-                            " and save to test HMR2 Change here 90        "
-                        ]
-                    })
-                ]
-            }),
-            /*#__PURE__*/ jsx("p", {
-                className: "read-the-docs",
-                children: "Click on the Vite and React logos to learn more"
-            })
-        ]
-    });
-}
+import { jsx, Fragment } from 'react/jsx-runtime';
+import React, { useEffect } from 'react';
+import { renderToReadableStream } from 'react-dom/server.browser';
 
 // [REF 1.1]
 //
@@ -83,22 +21,64 @@ function App() {
 //     headers: { 'Content-Type': 'text/html' },
 //   });
 // }
+const DemoComponent = ()=>{
+    const LazyButton = /*#__PURE__*/ React.lazy(async ()=>{
+        await new Promise((resolve)=>setTimeout(resolve, 500));
+        return {
+            default: ()=>/*#__PURE__*/ jsx("button", {
+                    children: "Click me"
+                })
+        };
+    });
+    useEffect(()=>{
+        console.log('mounted');
+    }, []);
+    return /*#__PURE__*/ jsx("div", {
+        children: /*#__PURE__*/ jsx(React.Suspense, {
+            fallback: /*#__PURE__*/ jsx(Fragment, {
+                children: "Waitttt"
+            }),
+            children: /*#__PURE__*/ jsx(LazyButton, {
+                onClick: ()=>alert('clicked')
+            })
+        })
+    });
+};
+const Entry = DemoComponent;
 async function handler(req, res) {
-    res.socket.on('error', (error)=>{
-        console.error('Fatal', error);
-    });
+    // res.socket.on('error', (error) => {
+    //   console.error('Fatal', error);
+    // });
     // Render React component to pipeable stream
-    const { pipe, abort } = renderToPipeableStream(/*#__PURE__*/ jsx(App, {}), {
-        onShellReady () {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/html');
-            pipe(res);
-        },
-        onErrorShell (error) {
-            res.statusCode = 500;
-            res.send(`<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`);
-        }
-    });
+    // const { pipe, abort } = renderToPipeableStream(
+    //     <Application />,
+    //   {
+    //     onShellReady() {
+    //       res.statusCode = 200;
+    //       res.setHeader('Content-Type', 'text/html');
+    //       pipe(res);
+    //     },
+    //     onErrorShell(error) {
+    //       res.statusCode = 500;
+    //       res.send(
+    //         `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
+    //       );
+    //     },
+    //   }
+    // );
+    //const stream = await renderToReadableStream(
+    // const stream = await renderToReadableStream(
+    //   <Entry />,
+    // );
+    //
+    // let text = '';
+    // let numChunks = 0;
+    // for await (const chunk of stream) {
+    //     text += new TextDecoder().decode(chunk);
+    //     numChunks++;
+    //     console.log('chunk', numChunks, text.length, text);
+    //   }
+    return await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {}));
 }
 
 export { handler as default };
