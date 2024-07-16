@@ -23,7 +23,7 @@
      },
      {
        "src":"/.*",
-       "dest":"/api/entry-server.js",
+       "dest":"/api/renderer.js",
        "headers": {
          "cache-control": "s-maxage=7200, max-age=86400, stale-while-revalidate"
        }

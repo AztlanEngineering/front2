@@ -69,7 +69,7 @@ function App() {
 // export default async function Handler(req: Request) {
 //   let didError = false;
 //
-//   const stream = await renderToReadableStream(<App
+//   const stream = await renderToReadableStream(<Application
 //   //  req={req}
 //   />, {
 //     onError(err: unknown) {

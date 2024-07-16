@@ -2,7 +2,7 @@
 import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 //import { renderToPipeableStream } from 'react-dom/server.browser';
-import App from './App';
+import Application from '../app/Application';
 // import { StaticRouter } from 'react-router-dom/server';
 //
 import { VercelRequest, VercelResponse } from '@vercel/node';
@@ -12,7 +12,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 // export default async function Handler(req: Request) {
 //   let didError = false;
 //
-//   const stream = await renderToReadableStream(<App
+//   const stream = await renderToReadableStream(<Application
 //   //  req={req}
 //   />, {
 //     onError(err: unknown) {
@@ -34,7 +34,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Render React component to pipeable stream
   const { pipe, abort } = renderToPipeableStream(
-      <App />,
+      <Application />,
     {
       onShellReady() {
         res.statusCode = 200;

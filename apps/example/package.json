@@ -8,8 +8,8 @@
     "serve:ssr": "bun run server.ts",
     "build": "bun run build:client && bun run build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir api",
-    "preview": "NODE_ENV=production node server",
+    "build:server": "vite build --ssr src/server/renderer.tsx --outDir api",
+    "preview": "NODE_ENV=production node src/server/server.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview:old": "vite preview"
   },

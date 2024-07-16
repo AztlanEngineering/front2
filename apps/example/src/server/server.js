@@ -3,7 +3,7 @@ import { createServer } from 'http';
 import { readFile } from 'fs/promises';
 import sirv from 'sirv';
 import compression from 'compression';
-import handler from './api/entry-server.js';
+import handler from '../../api/renderer.js';
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -12,10 +12,10 @@ const base = process.env.BASE || '/';
 
 // Cached production assets
 const templateHtml = isProduction
-  ? await readFile('./dist/client/index.html', 'utf-8')
+  ? await readFile('src/app/index.html', 'utf-8')
   : '';
 const ssrManifest = isProduction
-  ? JSON.parse(await readFile('./dist/client/.vite/ssr-manifest.json', 'utf-8'))
+  ? JSON.parse(await readFile('dist/client/.vite/ssr-manifest.json', 'utf-8'))
   : undefined;
 
 // Create HTTP server
@@ -44,7 +44,7 @@ app.use('*', async (req, res) => {
     let template;
     if (!isProduction) {
       // Always read fresh template in development
-      template = await readFile('./index.html', 'utf-8');
+      template = templateHtml;
       template = await vite.transformIndexHtml(url, template);
     } else {
       template = templateHtml;
