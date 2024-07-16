@@ -1,14 +1,15 @@
 import express from 'express';
-import { createServer } from 'http';
+import { createServer as createViteServer } from 'vite'
 import { readFile } from 'fs/promises';
 import sirv from 'sirv';
 import compression from 'compression';
-import handler from '../../api/renderer.js';
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 5173;
 const base = process.env.BASE || '/';
+
+// const handler = await import('../../api/renderer.js').then((module) => module.default);
 
 // Cached production assets
 const templateHtml = isProduction
@@ -22,46 +23,55 @@ const ssrManifest = isProduction
 const app = express();
 
 // Add Vite or respective production middlewares
-let vite;
-if (!isProduction) {
-  const { createServer } = await import('vite');
-  vite = await createServer({
+async function createServer() {
+  const app = express()
+
+  // Create Vite server in middleware mode and configure the app type as
+  // 'custom', disabling Vite's own HTML serving logic so parent server
+  // can take control
+  const vite = await createViteServer({
     server: { middlewareMode: true },
-    appType: 'custom',
-    base,
-  });
-  app.use(vite.middlewares);
-} else {
-  app.use(compression());
-  app.use(base, sirv('./dist/client', { extensions: [] }));
+    appType: 'custom'
+  })
+
+  // Use vite's connect instance as middleware. If you use your own
+  // express router (express.Router()), you should use router.use
+  // When the server restarts (for example after the user modifies
+  // vite.config.js), `vite.middlewares` is still going to be the same
+  // reference (with a new internal stack of Vite and plugin-injected
+  // middlewares). The following is valid even after restarts.
+  app.use(vite.middlewares)
+
+  app.use('*', async (req, res) => {
+    // Serve HTML
+      try {
+        const handler = await import('../../api/renderer.js').then((module) => module.default);
+        const url = req.originalUrl.replace(base, '');
+    
+        let template;
+        if (!isProduction) {
+          // Always read fresh template in development
+          template = templateHtml;
+          template = await vite.transformIndexHtml(url, template);
+          console.log(template)
+        } else {
+          template = templateHtml;
+        }
+        //handler = (await vite.ssrLoadModule('/src/server/renderer.tsx')).default;
+        
+    
+        // Call the handler to render the React component and stream it
+        handler(req, res, template, ssrManifest);
+      } catch (e) {
+        vite?.ssrFixStacktrace(e);
+        console.log(e.stack);
+        res.status(500).end(e.stack);
+      }
+  })
+
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`)
+  })
 }
 
-// Serve HTML
-app.use('*', async (req, res) => {
-  try {
-    const url = req.originalUrl.replace(base, '');
-
-    let template;
-    if (!isProduction) {
-      // Always read fresh template in development
-      template = templateHtml;
-      template = await vite.transformIndexHtml(url, template);
-    } else {
-      template = templateHtml;
-    }
-
-    // Call the handler to render the React component and stream it
-    handler(req, res, template, ssrManifest);
-  } catch (e) {
-    vite?.ssrFixStacktrace(e);
-    console.log(e.stack);
-    res.status(500).end(e.stack);
-  }
-});
-
-// Start HTTP server
-createServer(app).listen(port, (err) => {
-  if (err) throw err;
-  console.log(`Server started at http://localhost:${port}`);
-});
-
+createServer()

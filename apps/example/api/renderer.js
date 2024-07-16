@@ -51,7 +51,7 @@ function App() {
                             /*#__PURE__*/ jsx("code", {
                                 children: "src/App.jsx"
                             }),
-                            " and save to test HMR Change here"
+                            " and save to test HMR2 Change here 90        "
                         ]
                     })
                 ]

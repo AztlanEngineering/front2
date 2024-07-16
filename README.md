@@ -13,3 +13,6 @@ bun run index.ts
 ```
 
 This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+
+## Caveats
+- we cannot use bun to load the server because of the reliance of swc for relay compat
