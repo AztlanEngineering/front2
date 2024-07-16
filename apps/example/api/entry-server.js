@@ -1,6 +1,6 @@
 import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
 import { useState } from 'react';
-import { renderToReadableStream } from 'react-dom/server.browser';
+import { renderToPipeableStream } from 'react-dom/server';
 
 const reactLogo = "/assets/react-CHdo91hT.svg";
 
@@ -65,23 +65,40 @@ function App() {
 }
 
 // [REF 1.1]
-const config = {
-    runtime: 'edge'
-};
-async function Handler(req) {
-    let didError = false;
-    const stream = await renderToReadableStream(/*#__PURE__*/ jsx(App, {}), {
-        onError (err) {
-            didError = true;
-            console.error(err);
-        }
+//
+// export default async function Handler(req: Request) {
+//   let didError = false;
+//
+//   const stream = await renderToReadableStream(<App
+//   //  req={req}
+//   />, {
+//     onError(err: unknown) {
+//       didError = true;
+//       console.error(err);
+//     },
+//   });
+//
+//   return new Response(stream, {
+//     status: didError ? 500 : 200,
+//     headers: { 'Content-Type': 'text/html' },
+//   });
+// }
+async function handler(req, res) {
+    res.socket.on('error', (error)=>{
+        console.error('Fatal', error);
     });
-    return new Response(stream, {
-        status: didError ? 500 : 200,
-        headers: {
-            'Content-Type': 'text/html'
+    // Render React component to pipeable stream
+    const { pipe, abort } = renderToPipeableStream(/*#__PURE__*/ jsx(App, {}), {
+        onShellReady () {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/html');
+            pipe(res);
+        },
+        onErrorShell (error) {
+            res.statusCode = 500;
+            res.send(`<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`);
         }
     });
 }
 
-export { config, Handler as default };
+export { handler as default };

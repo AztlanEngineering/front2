@@ -13603,7 +13603,6 @@ async function Handler(req) {
       console.error(err);
     }
   });
-  console.log("stream", stream);
   return new Response(stream, {
     status: didError ? 500 : 200,
     headers: {

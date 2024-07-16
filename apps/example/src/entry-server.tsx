@@ -1,30 +1,53 @@
 // [REF 1.1]
 import React from 'react';
-import { renderToReadableStream } from 'react-dom/server.browser';
+import { renderToPipeableStream } from 'react-dom/server';
+//import { renderToPipeableStream } from 'react-dom/server.browser';
 import App from './App';
 // import { StaticRouter } from 'react-router-dom/server';
 //
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 
-export const config = {
-  runtime: 'edge', // this is a pre-requisite
-};
+//
+// export default async function Handler(req: Request) {
+//   let didError = false;
+//
+//   const stream = await renderToReadableStream(<App
+//   //  req={req}
+//   />, {
+//     onError(err: unknown) {
+//       didError = true;
+//       console.error(err);
+//     },
+//   });
+//
+//   return new Response(stream, {
+//     status: didError ? 500 : 200,
+//     headers: { 'Content-Type': 'text/html' },
+//   });
+// }
 
-export default async function Handler(req: Request) {
-  let didError = false;
-
-  const stream = await renderToReadableStream(<App
-  //  req={req}
-  />, {
-    onError(err: unknown) {
-      didError = true;
-      console.error(err);
-    },
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.socket.on('error', (error) => {
+    console.error('Fatal', error);
   });
 
-  return new Response(stream, {
-    status: didError ? 500 : 200,
-    headers: { 'Content-Type': 'text/html' },
-  });
+  // Render React component to pipeable stream
+  const { pipe, abort } = renderToPipeableStream(
+      <App />,
+    {
+      onShellReady() {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        pipe(res);
+      },
+      onErrorShell(error) {
+        res.statusCode = 500;
+        res.send(
+          `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
+        );
+      },
+    }
+  );
+
 }
