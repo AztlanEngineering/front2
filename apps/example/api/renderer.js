@@ -1,5 +1,6 @@
 import { jsx, Fragment } from 'react/jsx-runtime';
 import React, { useEffect } from 'react';
+import { renderToPipeableStream } from 'react-dom/server';
 import { renderToReadableStream } from 'react-dom/server.browser';
 
 // [REF 1.1]
@@ -50,35 +51,42 @@ async function handler(req, res) {
     //   console.error('Fatal', error);
     // });
     // Render React component to pipeable stream
-    // const { pipe, abort } = renderToPipeableStream(
-    //     <Application />,
-    //   {
-    //     onShellReady() {
-    //       res.statusCode = 200;
-    //       res.setHeader('Content-Type', 'text/html');
-    //       pipe(res);
-    //     },
-    //     onErrorShell(error) {
-    //       res.statusCode = 500;
-    //       res.send(
-    //         `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
-    //       );
-    //     },
-    //   }
-    // );
-    //const stream = await renderToReadableStream(
+    const { pipe, abort } = renderToPipeableStream(/*#__PURE__*/ jsx(Entry, {}), {
+        onShellReady () {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/html');
+            pipe(res);
+        },
+        onErrorShell (error) {
+            res.statusCode = 500;
+            res.send(`<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`);
+        }
+    });
     // const stream = await renderToReadableStream(
     //   <Entry />,
     // );
-    //
     // let text = '';
     // let numChunks = 0;
     // for await (const chunk of stream) {
-    //     text += new TextDecoder().decode(chunk);
-    //     numChunks++;
-    //     console.log('chunk', numChunks, text.length, text);
-    //   }
-    return await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {}));
+    //   text += new TextDecoder().decode(chunk);
+    //   numChunks++;
+    //   console.log('chunk', numChunks, text.length, text);
+    // }
+    return {
+        pipe,
+        abort
+    };
+}
+async function bunHandler() {
+    const stream = await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {}));
+    // let text = '';
+    // let numChunks = 0;
+    // for await (const chunk of stream) {
+    //   text += new TextDecoder().decode(chunk);
+    //   numChunks++;
+    //   console.log('chunk', numChunks, text.length, text);
+    // }
+    return stream;
 }
 
-export { handler as default };
+export { bunHandler, handler as default };

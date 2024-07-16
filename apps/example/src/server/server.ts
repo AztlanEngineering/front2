@@ -17,7 +17,7 @@ const ssrManifest: Record<string, any> | undefined = isProduction
 async function requestHandler(req: Request, res: Response) {
   try {
     const handler = await import('../../api/renderer.js').then(
-      (module) => module.default
+      (module) => module.bunHandler
     );
     const url: string = req.url ? req.url.replace(base, '') : '';
 
@@ -43,7 +43,7 @@ async function requestHandler(req: Request, res: Response) {
 serve({
   async fetch(req: Request) {
     const handler = await import('../../api/renderer.js').then(
-      (module) => module.default
+      (module) => module.bunHandler
     );
     const stream = await handler(req, null);
     return new Response(stream, {
