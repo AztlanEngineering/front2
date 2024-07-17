@@ -73,41 +73,60 @@ const Entry = ({ lang}) => {
   );
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // res.socket.on('error', (error) => {
-  //   console.error('Fatal', error);
-  // });
+// export default async function handler(req: VercelRequest, res: VercelResponse) {
+//   // res.socket.on('error', (error) => {
+//   //   console.error('Fatal', error);
+//   // });
+//
+//   // Render React component to pipeable stream
+//   const { pipe, abort } = renderToPipeableStream(
+//     <Entry />,
+//     {
+//       onShellReady() {
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'text/html');
+//         pipe(res);
+//       },
+//       onErrorShell(error) {
+//         res.statusCode = 500;
+//         res.send(
+//           `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
+//         );
+//       },
+//     }
+//   );
+//   // const stream = await renderToReadableStream(
+//   //   <Entry />,
+//   // );
+//
+//   // let text = '';
+//   // let numChunks = 0;
+//   // for await (const chunk of stream) {
+//   //   text += new TextDecoder().decode(chunk);
+//   //   numChunks++;
+//   //   console.log('chunk', numChunks, text.length, text);
+//   // }
+//
+//   return { pipe, abort };
+// }
 
-  // Render React component to pipeable stream
-  const { pipe, abort } = renderToPipeableStream(
-    <Entry />,
-    {
-      onShellReady() {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        pipe(res);
-      },
-      onErrorShell(error) {
-        res.statusCode = 500;
-        res.send(
-          `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
-        );
-      },
-    }
-  );
-  // const stream = await renderToReadableStream(
-  //   <Entry />,
-  // );
+export async function GET() {
+    const encoder = new TextEncoder();
+    const stream = await bunHandler();
 
-  // let text = '';
-  // let numChunks = 0;
-  // for await (const chunk of stream) {
-  //   text += new TextDecoder().decode(chunk);
-  //   numChunks++;
-  //   console.log('chunk', numChunks, text.length, text);
-  // }
+    // // Transform stream to uppercase
+    // const transformStream = new TransformStream({
+    //     async transform(chunk, controller) {
+    //         const text = new TextDecoder().decode(chunk);
+    //         controller.enqueue(encoder.encode(text.toUpperCase()));
+    //     },
+    // });
 
-  return { pipe, abort };
+    return new Response(stream.pipeThrough(stream), {
+        headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+        },
+    });
 }
 
 export async function bunHandler() {
