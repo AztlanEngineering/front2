@@ -24,8 +24,8 @@ function App({ lang = 'en', extractor }) {
                     /*#__PURE__*/ jsx("title", {
                         children: "React Server Components"
                     }),
-                    linkTags,
-                    scriptTags
+                    extractor?.getLinkTags(),
+                    extractor?.getScriptTags()
                 ]
             }),
             /*#__PURE__*/ jsx("body", {

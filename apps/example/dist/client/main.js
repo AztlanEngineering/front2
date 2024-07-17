@@ -440,8 +440,8 @@ function App({ lang = 'en', extractor }) {
                     /*#__PURE__*/ jsxRuntimeExports.jsx("title", {
                         children: "React Server Components"
                     }),
-                    linkTags,
-                    scriptTags
+                    extractor?.getLinkTags(),
+                    extractor?.getScriptTags()
                 ]
             }),
             /*#__PURE__*/ jsxRuntimeExports.jsx("body", {

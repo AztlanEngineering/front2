@@ -2,9 +2,14 @@ import { useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import './Application.css'
+import type { Extractor }from '../server/extractor'
 
+type Props = {
+  lang?: string
+  extractor?: Extractor
+}
 
-function App({ lang= 'en', extractor}) {
+function App({ lang= 'en', extractor}: Props) {
   const [count, setCount] = useState(0)
 
   return (
@@ -13,8 +18,8 @@ function App({ lang= 'en', extractor}) {
       <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>React Server Components</title>
-        {linkTags}
-        {scriptTags}
+        {extractor?.getLinkTags()}
+        {extractor?.getScriptTags()}
       </head>
       <body>
         <div id="root">
