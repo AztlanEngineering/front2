@@ -10,6 +10,9 @@ import Application from '../app/Application';
 //
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
+export const config = {
+  supportsResponseStreaming: true,
+};
 
 //
 // export default async function Handler(req: Request) {
@@ -53,46 +56,61 @@ const DemoComponent = () => {
 
 
 
-const Entry = DemoComponent;
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // res.socket.on('error', (error) => {
-  //   console.error('Fatal', error);
-  // });
-
-  // Render React component to pipeable stream
-  const { pipe, abort } = renderToPipeableStream(
-    <Entry />,
-    {
-      onShellReady() {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        pipe(res);
-      },
-      onErrorShell(error) {
-        res.statusCode = 500;
-        res.send(
-          `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
-        );
-      },
-    }
+const Entry = ({ lang}) => {
+  return (
+    <html lang={lang}>
+      <head>
+      <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>React Server Components</title>
+      </head>
+      <body>
+        <div id="root">
+          <DemoComponent />
+        </div>
+      </body>
+    </html>
   );
-  // const stream = await renderToReadableStream(
-  //   <Entry />,
-  // );
-
-  // let text = '';
-  // let numChunks = 0;
-  // for await (const chunk of stream) {
-  //   text += new TextDecoder().decode(chunk);
-  //   numChunks++;
-  //   console.log('chunk', numChunks, text.length, text);
-  // }
-
-  return { pipe, abort };
 }
 
-export async function bunHandler() {
+// export default async function handler(req: VercelRequest, res: VercelResponse) {
+//   // res.socket.on('error', (error) => {
+//   //   console.error('Fatal', error);
+//   // });
+//
+//   // Render React component to pipeable stream
+//   const { pipe, abort } = renderToPipeableStream(
+//     <Entry />,
+//     {
+//       onShellReady() {
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'text/html');
+//         pipe(res);
+//       },
+//       onErrorShell(error) {
+//         res.statusCode = 500;
+//         res.send(
+//           `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
+//         );
+//       },
+//     }
+//   );
+//   // const stream = await renderToReadableStream(
+//   //   <Entry />,
+//   // );
+//
+//   // let text = '';
+//   // let numChunks = 0;
+//   // for await (const chunk of stream) {
+//   //   text += new TextDecoder().decode(chunk);
+//   //   numChunks++;
+//   //   console.log('chunk', numChunks, text.length, text);
+//   // }
+//
+//   return { pipe, abort };
+// }
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const stream = await renderToReadableStream(
     <Entry />,
   );

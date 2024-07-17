@@ -1,7 +1,8 @@
-import { jsx, Fragment } from 'react/jsx-runtime';
+import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import React, { useEffect } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { renderToReadableStream } from 'react-dom/server.browser';
+
 
 // [REF 1.1]
 //
@@ -45,7 +46,33 @@ const DemoComponent = ()=>{
         })
     });
 };
-const Entry = DemoComponent;
+const Entry = ({ lang })=>{
+    return /*#__PURE__*/ jsxs("html", {
+        lang: lang,
+        children: [
+            /*#__PURE__*/ jsxs("head", {
+                children: [
+                    /*#__PURE__*/ jsx("meta", {
+                        charset: "UTF-8"
+                    }),
+                    /*#__PURE__*/ jsx("meta", {
+                        name: "viewport",
+                        content: "width=device-width, initial-scale=1.0"
+                    }),
+                    /*#__PURE__*/ jsx("title", {
+                        children: "React Server Components"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx("body", {
+                children: /*#__PURE__*/ jsx("div", {
+                    id: "root",
+                    children: /*#__PURE__*/ jsx(DemoComponent, {})
+                })
+            })
+        ]
+    });
+};
 async function handler(req, res) {
     // res.socket.on('error', (error) => {
     //   console.error('Fatal', error);

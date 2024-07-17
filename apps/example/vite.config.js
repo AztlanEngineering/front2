@@ -8,7 +8,7 @@ import config from "./swc.ts"
 export default defineConfig({
   plugins: [
     react({}),
-    swc.vite({ jsc:config.jsc })
+    swc.vite({ jsc:config.jsc }),
   ],
   build: {
     rollupOptions: {
