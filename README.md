@@ -20,3 +20,7 @@ This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) 
   - too much magic
   - forces in the router
   - several wrappers around renderer fn, undocummented stream apis
+- Caveats :
+    - renderer is compiled on client build, should limit client build to some files, or refactor main folder with two entries. -> otherwise renderer has import not found
+    - dev server and watcher not pipeing properly stdout
+
