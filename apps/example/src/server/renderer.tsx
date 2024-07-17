@@ -34,7 +34,7 @@ export const config = {
 // }
 const DemoComponent = () => {
   const LazyButton = React.lazy(async () => {
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 50));
 
     return {
       default: () => <button>Click me</button>,
