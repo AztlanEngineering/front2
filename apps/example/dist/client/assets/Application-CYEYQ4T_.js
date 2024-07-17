@@ -1,7 +1,3 @@
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production_min = {};
@@ -42,7 +38,6 @@ react_production_min.useMemo=function(a,b){return U.current.useMemo(a,b)};react_
 }
 
 var reactExports = react.exports;
-const React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
 /**
  * @license React
@@ -62,4 +57,4 @@ function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&
 
 var jsxRuntimeExports = jsxRuntime.exports;
 
-export { React as R, jsxRuntimeExports as j, reactExports as r };
+export { jsxRuntimeExports as j, reactExports as r };

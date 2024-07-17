@@ -1,4 +1,4 @@
-import { jsxs, jsx } from 'react/jsx-runtime';
+import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import React, { useState } from 'react';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import { parseDocument } from 'htmlparser2';
@@ -8,7 +8,6 @@ const reactLogo = "/assets/react-CHdo91hT.svg";
 const viteLogo = "/vite.svg";
 
 function App({ lang = 'en', extractor }) {
-    const [count, setCount] = useState(0);
     return /*#__PURE__*/ jsxs("html", {
         lang: lang,
         children: [
@@ -29,65 +28,71 @@ function App({ lang = 'en', extractor }) {
                 ]
             }),
             /*#__PURE__*/ jsx("body", {
-                children: /*#__PURE__*/ jsxs("div", {
+                children: /*#__PURE__*/ jsx("div", {
                     id: "root",
-                    children: [
-                        /*#__PURE__*/ jsxs("div", {
-                            children: [
-                                /*#__PURE__*/ jsx("a", {
-                                    href: "https://vitejs.dev",
-                                    target: "_blank",
-                                    children: /*#__PURE__*/ jsx("img", {
-                                        src: viteLogo,
-                                        className: "logo",
-                                        alt: "Vite logo"
-                                    })
-                                }),
-                                /*#__PURE__*/ jsx("a", {
-                                    href: "https://react.dev",
-                                    target: "_blank",
-                                    children: /*#__PURE__*/ jsx("img", {
-                                        src: reactLogo,
-                                        className: "logo react",
-                                        alt: "React logo"
-                                    })
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ jsx("h1", {
-                            children: "Vite + React"
-                        }),
-                        /*#__PURE__*/ jsxs("div", {
-                            className: "card",
-                            children: [
-                                /*#__PURE__*/ jsxs("button", {
-                                    onClick: ()=>setCount((count)=>count + 1),
-                                    children: [
-                                        "count is ",
-                                        count
-                                    ]
-                                }),
-                                /*#__PURE__*/ jsxs("p", {
-                                    children: [
-                                        "Edit ",
-                                        /*#__PURE__*/ jsx("code", {
-                                            children: "src/App.jsx"
-                                        }),
-                                        " and save to test HMR2 Change here 9        "
-                                    ]
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ jsx("p", {
-                            className: "read-the-docs",
-                            children: "Click on the Vite and React logos to learn more"
-                        })
-                    ]
+                    children: /*#__PURE__*/ jsx(InnerApp, {})
                 })
             })
         ]
     });
 }
+const InnerApp = ()=>{
+    const [count, setCount] = useState(0);
+    return /*#__PURE__*/ jsxs(Fragment, {
+        children: [
+            /*#__PURE__*/ jsxs("div", {
+                children: [
+                    /*#__PURE__*/ jsx("a", {
+                        href: "https://vitejs.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsx("img", {
+                            src: viteLogo,
+                            className: "logo",
+                            alt: "Vite logo"
+                        })
+                    }),
+                    /*#__PURE__*/ jsx("a", {
+                        href: "https://react.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsx("img", {
+                            src: reactLogo,
+                            className: "logo react",
+                            alt: "React logo"
+                        })
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx("h1", {
+                children: "Vite + React"
+            }),
+            /*#__PURE__*/ jsxs("div", {
+                className: "card",
+                children: [
+                    /*#__PURE__*/ jsxs("button", {
+                        onClick: ()=>setCount((count)=>count + 1),
+                        children: [
+                            "count is ",
+                            count
+                        ]
+                    }),
+                    /*#__PURE__*/ jsxs("p", {
+                        children: [
+                            "Edit ",
+                            /*#__PURE__*/ jsx("code", {
+                                children: "src/App.jsx"
+                            }),
+                            " and save to test HMR2 Change here 9        "
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx("p", {
+                className: "read-the-docs",
+                children: "Click on the Vite and React logos to learn more"
+            })
+        ]
+    });
+};
 
 /**
  * Parses an HTML string to extract and convert script and link tags to React.createElement calls.
@@ -95,6 +100,7 @@ function App({ lang = 'en', extractor }) {
     document;
     constructor(html){
         this.document = parseDocument(html);
+        console.log(this.document);
     }
     getElementsByTagName(tagName) {
         const elements = [];
@@ -107,10 +113,15 @@ function App({ lang = 'en', extractor }) {
             if (node.type === 'tag' && node.name === tagName) {
                 elements.push(node);
             }
+            // Check for script tags specifically
+            if (node.type === 'script' && tagName === 'script') {
+                elements.push(node);
+            }
             if (node.children) {
                 stack.push(...node.children);
             }
         }
+        console.log(`Found ${elements.length} <${tagName}> tags`);
         return elements;
     }
     convertToReactElement(element) {
@@ -130,7 +141,7 @@ function App({ lang = 'en', extractor }) {
     }
 }
 
-const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/Application-BQzi7vvf.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/Application-Bx9V9zN2.css\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-BPvgi06w.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
+const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/Application-CYEYQ4T_.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/Application-Bx9V9zN2.css\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-BPvgi06w.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
 
 // [REF 1.1]
 const config = {

@@ -10,7 +10,6 @@ type Props = {
 }
 
 function App({ lang= 'en', extractor}: Props) {
-  const [count, setCount] = useState(0)
 
   return (
     <html lang={lang}>
@@ -23,6 +22,17 @@ function App({ lang= 'en', extractor}: Props) {
       </head>
       <body>
         <div id="root">
+          <InnerApp />
+        </div>
+      </body>
+    </html>
+  )
+}
+
+export const InnerApp = () => {
+  const [count, setCount] = useState(0)
+  return (
+    <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -43,11 +53,9 @@ function App({ lang= 'en', extractor}: Props) {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-        </div>
-      </body>
-    </html>
+      </>
+
   )
 }
-
 
 export default App

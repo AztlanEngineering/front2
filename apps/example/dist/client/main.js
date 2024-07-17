@@ -1,4 +1,4 @@
-import { r as reactExports, j as jsxRuntimeExports, R as React } from './assets/Application-BQzi7vvf.js';
+import { r as reactExports, j as jsxRuntimeExports } from './assets/Application-CYEYQ4T_.js';
 
 true&&(function polyfill() {
   const relList = document.createElement("link").relList;
@@ -37,8 +37,6 @@ true&&(function polyfill() {
     fetch(link.href, fetchOpts);
   }
 }());
-
-var client = {};
 
 var reactDom = {exports: {}};
 
@@ -413,98 +411,74 @@ function checkDCE() {
 
 var reactDomExports = reactDom.exports;
 
+var hydrateRoot;
 var m = reactDomExports;
 {
-  client.createRoot = m.createRoot;
-  client.hydrateRoot = m.hydrateRoot;
+  m.createRoot;
+  hydrateRoot = m.hydrateRoot;
 }
 
 const reactLogo = "/assets/react-CHdo91hT.svg";
 
 const viteLogo = "/vite.svg";
 
-function App({ lang = 'en', extractor }) {
+const InnerApp = ()=>{
     const [count, setCount] = reactExports.useState(0);
-    return /*#__PURE__*/ jsxRuntimeExports.jsxs("html", {
-        lang: lang,
+    return /*#__PURE__*/ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, {
         children: [
-            /*#__PURE__*/ jsxRuntimeExports.jsxs("head", {
+            /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
                 children: [
-                    /*#__PURE__*/ jsxRuntimeExports.jsx("meta", {
-                        charset: "UTF-8"
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
+                        href: "https://vitejs.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
+                            src: viteLogo,
+                            className: "logo",
+                            alt: "Vite logo"
+                        })
                     }),
-                    /*#__PURE__*/ jsxRuntimeExports.jsx("meta", {
-                        name: "viewport",
-                        content: "width=device-width, initial-scale=1.0"
-                    }),
-                    /*#__PURE__*/ jsxRuntimeExports.jsx("title", {
-                        children: "React Server Components"
-                    }),
-                    extractor?.getLinkTags(),
-                    extractor?.getScriptTags()
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
+                        href: "https://react.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
+                            src: reactLogo,
+                            className: "logo react",
+                            alt: "React logo"
+                        })
+                    })
                 ]
             }),
-            /*#__PURE__*/ jsxRuntimeExports.jsx("body", {
-                children: /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
-                    id: "root",
-                    children: [
-                        /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
-                            children: [
-                                /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
-                                    href: "https://vitejs.dev",
-                                    target: "_blank",
-                                    children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
-                                        src: viteLogo,
-                                        className: "logo",
-                                        alt: "Vite logo"
-                                    })
-                                }),
-                                /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
-                                    href: "https://react.dev",
-                                    target: "_blank",
-                                    children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
-                                        src: reactLogo,
-                                        className: "logo react",
-                                        alt: "React logo"
-                                    })
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ jsxRuntimeExports.jsx("h1", {
-                            children: "Vite + React"
-                        }),
-                        /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
-                            className: "card",
-                            children: [
-                                /*#__PURE__*/ jsxRuntimeExports.jsxs("button", {
-                                    onClick: ()=>setCount((count)=>count + 1),
-                                    children: [
-                                        "count is ",
-                                        count
-                                    ]
-                                }),
-                                /*#__PURE__*/ jsxRuntimeExports.jsxs("p", {
-                                    children: [
-                                        "Edit ",
-                                        /*#__PURE__*/ jsxRuntimeExports.jsx("code", {
-                                            children: "src/App.jsx"
-                                        }),
-                                        " and save to test HMR2 Change here 9        "
-                                    ]
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ jsxRuntimeExports.jsx("p", {
-                            className: "read-the-docs",
-                            children: "Click on the Vite and React logos to learn more"
-                        })
-                    ]
-                })
+            /*#__PURE__*/ jsxRuntimeExports.jsx("h1", {
+                children: "Vite + React"
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
+                className: "card",
+                children: [
+                    /*#__PURE__*/ jsxRuntimeExports.jsxs("button", {
+                        onClick: ()=>setCount((count)=>count + 1),
+                        children: [
+                            "count is ",
+                            count
+                        ]
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsxs("p", {
+                        children: [
+                            "Edit ",
+                            /*#__PURE__*/ jsxRuntimeExports.jsx("code", {
+                                children: "src/App.jsx"
+                            }),
+                            " and save to test HMR2 Change here 9        "
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsx("p", {
+                className: "read-the-docs",
+                children: "Click on the Vite and React logos to learn more"
             })
         ]
     });
-}
+};
 
-client.createRoot(document.getElementById('root')).render(/*#__PURE__*/ jsxRuntimeExports.jsx(React.StrictMode, {
-    children: /*#__PURE__*/ jsxRuntimeExports.jsx(App, {})
-}));
+const domNode = document.getElementById('root');
+hydrateRoot(domNode, /*#__PURE__*/ jsxRuntimeExports.jsx(InnerApp, {}));

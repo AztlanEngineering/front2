@@ -4,26 +4,23 @@
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react-dom/cjs/react-dom.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react-dom/client.js?commonjs-exports": [
-    "/assets/react-CHdo91hT.svg"
-  ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react-dom/index.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react-jsx-runtime.production.min.js?commonjs-exports": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react.production.min.js?commonjs-exports": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/index.js?commonjs-module": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/jsx-runtime.js?commonjs-module": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/scheduler/cjs/scheduler.production.min.js?commonjs-exports": [
@@ -31,10 +28,6 @@
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/scheduler/index.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
-  ],
-  "\u0000commonjsHelpers.js": [
-    "/assets/Application-BQzi7vvf.js",
-    "/assets/Application-Bx9V9zN2.css"
   ],
   "\u0000vite/modulepreload-polyfill.js": [
     "/assets/react-CHdo91hT.svg"
@@ -55,19 +48,19 @@
   ],
   "../../node_modules/react-dom/server.browser.js": [],
   "../../node_modules/react/cjs/react-jsx-runtime.production.min.js": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "../../node_modules/react/cjs/react.production.min.js": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "../../node_modules/react/index.js": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "../../node_modules/react/jsx-runtime.js": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "../../node_modules/scheduler/cjs/scheduler.production.min.js": [
@@ -80,7 +73,7 @@
     "/assets/react-CHdo91hT.svg"
   ],
   "src/app/Application.css": [
-    "/assets/Application-BQzi7vvf.js",
+    "/assets/Application-CYEYQ4T_.js",
     "/assets/Application-Bx9V9zN2.css"
   ],
   "src/app/Application.tsx": [

@@ -12,7 +12,7 @@ class Extractor {
         this.document = parseDocument(html);
     }
 
-    private getElementsByTagName(tagName: string): Element[] {
+     private getElementsByTagName(tagName: string): Element[] {
         const elements: Element[] = [];
         const stack = [this.document];
 
@@ -24,11 +24,17 @@ class Extractor {
                 elements.push(node);
             }
 
+            // Check for script tags specifically
+            if (node.type === 'script' && tagName === 'script') {
+                elements.push(node);
+            }
+
             if (node.children) {
                 stack.push(...node.children);
             }
         }
 
+        console.log(`Found ${elements.length} <${tagName}> tags`);
         return elements;
     }
 
