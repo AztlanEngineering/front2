@@ -26,7 +26,7 @@ const config = {
 // }
 const DemoComponent = ()=>{
     const LazyButton = /*#__PURE__*/ React.lazy(async ()=>{
-        await new Promise((resolve)=>setTimeout(resolve, 500));
+        await new Promise((resolve)=>setTimeout(resolve, 50));
         return {
             default: ()=>/*#__PURE__*/ jsx("button", {
                     children: "Click me"
@@ -120,7 +120,7 @@ async function GET() {
     //         controller.enqueue(encoder.encode(text.toUpperCase()));
     //     },
     // });
-    return new Response(stream.pipeThrough(stream), {
+    return new Response(stream, {
         headers: {
             'Content-Type': 'text/html; charset=utf-8'
         }
