@@ -3,8 +3,10 @@ import React, { useEffect } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { renderToReadableStream } from 'react-dom/server.browser';
 
-
 // [REF 1.1]
+const config = {
+    supportsResponseStreaming: true
+};
 //
 // export default async function Handler(req: Request) {
 //   let didError = false;
@@ -116,4 +118,4 @@ async function bunHandler() {
     return stream;
 }
 
-export { bunHandler, handler as default };
+export { bunHandler, config, handler as default };
