@@ -1,7 +1,93 @@
-import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import React, { useEffect } from 'react';
+import { jsxs, jsx } from 'react/jsx-runtime';
+import React, { useState } from 'react';
 import { renderToReadableStream } from 'react-dom/server.browser';
 import { parseDocument } from 'htmlparser2';
+
+const reactLogo = "/assets/react-CHdo91hT.svg";
+
+const viteLogo = "/vite.svg";
+
+function App({ lang = 'en', extractor }) {
+    const [count, setCount] = useState(0);
+    return /*#__PURE__*/ jsxs("html", {
+        lang: lang,
+        children: [
+            /*#__PURE__*/ jsxs("head", {
+                children: [
+                    /*#__PURE__*/ jsx("meta", {
+                        charset: "UTF-8"
+                    }),
+                    /*#__PURE__*/ jsx("meta", {
+                        name: "viewport",
+                        content: "width=device-width, initial-scale=1.0"
+                    }),
+                    /*#__PURE__*/ jsx("title", {
+                        children: "React Server Components"
+                    }),
+                    linkTags,
+                    scriptTags
+                ]
+            }),
+            /*#__PURE__*/ jsx("body", {
+                children: /*#__PURE__*/ jsxs("div", {
+                    id: "root",
+                    children: [
+                        /*#__PURE__*/ jsxs("div", {
+                            children: [
+                                /*#__PURE__*/ jsx("a", {
+                                    href: "https://vitejs.dev",
+                                    target: "_blank",
+                                    children: /*#__PURE__*/ jsx("img", {
+                                        src: viteLogo,
+                                        className: "logo",
+                                        alt: "Vite logo"
+                                    })
+                                }),
+                                /*#__PURE__*/ jsx("a", {
+                                    href: "https://react.dev",
+                                    target: "_blank",
+                                    children: /*#__PURE__*/ jsx("img", {
+                                        src: reactLogo,
+                                        className: "logo react",
+                                        alt: "React logo"
+                                    })
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx("h1", {
+                            children: "Vite + React"
+                        }),
+                        /*#__PURE__*/ jsxs("div", {
+                            className: "card",
+                            children: [
+                                /*#__PURE__*/ jsxs("button", {
+                                    onClick: ()=>setCount((count)=>count + 1),
+                                    children: [
+                                        "count is ",
+                                        count
+                                    ]
+                                }),
+                                /*#__PURE__*/ jsxs("p", {
+                                    children: [
+                                        "Edit ",
+                                        /*#__PURE__*/ jsx("code", {
+                                            children: "src/App.jsx"
+                                        }),
+                                        " and save to test HMR2 Change here 9        "
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx("p", {
+                            className: "read-the-docs",
+                            children: "Click on the Vite and React logos to learn more"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+}
 
 /**
  * Parses an HTML string to extract and convert script and link tags to React.createElement calls.
@@ -44,85 +130,13 @@ import { parseDocument } from 'htmlparser2';
     }
 }
 
-const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/jsx-runtime-BxrnBPY-.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-DiwrgTda.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
+const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/Application-BQzi7vvf.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/Application-Bx9V9zN2.css\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-BPvgi06w.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
 
 // [REF 1.1]
 const config = {
     supportsResponseStreaming: true
 };
-//
-// export default async function Handler(req: Request) {
-//   let didError = false;
-//
-//   const stream = await renderToReadableStream(<Application
-//   //  req={req}
-//   />, {
-//     onError(err: unknown) {
-//       didError = true;
-//       console.error(err);
-//     },
-//   });
-//
-//   return new Response(stream, {
-//     status: didError ? 500 : 200,
-//     headers: { 'Content-Type': 'text/html' },
-//   });
-// }
-const DemoComponent = ()=>{
-    const LazyButton = /*#__PURE__*/ React.lazy(async ()=>{
-        await new Promise((resolve)=>setTimeout(resolve, 0));
-        return {
-            default: ()=>/*#__PURE__*/ jsx("button", {
-                    children: "Click me"
-                })
-        };
-    });
-    useEffect(()=>{
-        console.log('mounted');
-    }, []);
-    return /*#__PURE__*/ jsx("div", {
-        children: /*#__PURE__*/ jsx(React.Suspense, {
-            fallback: /*#__PURE__*/ jsx(Fragment, {
-                children: "Waitttt"
-            }),
-            children: /*#__PURE__*/ jsx(LazyButton, {
-                onClick: ()=>alert('clicked')
-            })
-        })
-    });
-};
-const Entry = ({ lang })=>{
-    const extractor = new Extractor(htmlString);
-    const linkTags = extractor.getLinkTags();
-    const scriptTags = extractor.getScriptTags();
-    return /*#__PURE__*/ jsxs("html", {
-        lang: lang,
-        children: [
-            /*#__PURE__*/ jsxs("head", {
-                children: [
-                    /*#__PURE__*/ jsx("meta", {
-                        charset: "UTF-8"
-                    }),
-                    /*#__PURE__*/ jsx("meta", {
-                        name: "viewport",
-                        content: "width=device-width, initial-scale=1.0"
-                    }),
-                    /*#__PURE__*/ jsx("title", {
-                        children: "React Server Components"
-                    }),
-                    linkTags,
-                    scriptTags
-                ]
-            }),
-            /*#__PURE__*/ jsx("body", {
-                children: /*#__PURE__*/ jsx("div", {
-                    id: "root",
-                    children: /*#__PURE__*/ jsx(DemoComponent, {})
-                })
-            })
-        ]
-    });
-};
+const Entry = App;
 // export default async function handler(req: VercelRequest, res: VercelResponse) {
 //   // res.socket.on('error', (error) => {
 //   //   console.error('Fatal', error);
@@ -176,7 +190,11 @@ async function GET() {
     });
 }
 async function bunHandler() {
-    const stream = await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {}));
+    const extractor = new Extractor(htmlString);
+    const stream = await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {
+        lang: 'en',
+        extractor: extractor
+    }));
     // let text = '';
     // let numChunks = 0;
     // for await (const chunk of stream) {

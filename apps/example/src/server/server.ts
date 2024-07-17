@@ -1,5 +1,7 @@
 import { serve } from 'bun';
 import { readFile } from 'fs/promises';
+import staticFileMiddleware from './staticFileMiddleware';
+
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -8,7 +10,7 @@ const base = process.env.BASE || '/';
 
 // Cached production assets
 const templateHtml: string = isProduction
-  ? await readFile('dist/client/src/app/index.html', 'utf-8')
+  ? await readFile('dist/client/index.html', 'utf-8')
   : '';
 const ssrManifest: Record<string, any> | undefined = isProduction
   ? JSON.parse(await readFile('dist/client/.vite/ssr-manifest.json', 'utf-8'))
@@ -42,6 +44,11 @@ async function requestHandler(req: Request, res: Response) {
 
 serve({
   async fetch(req: Request) {
+    const staticResponse = await staticFileMiddleware(req);
+    if (staticResponse) {
+      return staticResponse;
+    }
+
     const handler = await import('../../api/renderer.js').then(
       (module) => module.bunHandler
     );

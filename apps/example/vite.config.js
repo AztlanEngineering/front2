@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'src/app/index.html'),
+        main: path.resolve(__dirname, 'index.html'),
         server: path.resolve(__dirname, 'src/server/renderer.tsx'),
       },
       output: {
