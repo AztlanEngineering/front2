@@ -73,44 +73,44 @@ const Entry = ({ lang}) => {
   );
 }
 
-// export default async function handler(req: VercelRequest, res: VercelResponse) {
-//   // res.socket.on('error', (error) => {
-//   //   console.error('Fatal', error);
-//   // });
-//
-//   // Render React component to pipeable stream
-//   const { pipe, abort } = renderToPipeableStream(
-//     <Entry />,
-//     {
-//       onShellReady() {
-//         res.statusCode = 200;
-//         res.setHeader('Content-Type', 'text/html');
-//         pipe(res);
-//       },
-//       onErrorShell(error) {
-//         res.statusCode = 500;
-//         res.send(
-//           `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
-//         );
-//       },
-//     }
-//   );
-//   // const stream = await renderToReadableStream(
-//   //   <Entry />,
-//   // );
-//
-//   // let text = '';
-//   // let numChunks = 0;
-//   // for await (const chunk of stream) {
-//   //   text += new TextDecoder().decode(chunk);
-//   //   numChunks++;
-//   //   console.log('chunk', numChunks, text.length, text);
-//   // }
-//
-//   return { pipe, abort };
-// }
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // res.socket.on('error', (error) => {
+  //   console.error('Fatal', error);
+  // });
+
+  // Render React component to pipeable stream
+  const { pipe, abort } = renderToPipeableStream(
+    <Entry />,
+    {
+      onShellReady() {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        pipe(res);
+      },
+      onErrorShell(error) {
+        res.statusCode = 500;
+        res.send(
+          `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
+        );
+      },
+    }
+  );
+  // const stream = await renderToReadableStream(
+  //   <Entry />,
+  // );
+
+  // let text = '';
+  // let numChunks = 0;
+  // for await (const chunk of stream) {
+  //   text += new TextDecoder().decode(chunk);
+  //   numChunks++;
+  //   console.log('chunk', numChunks, text.length, text);
+  // }
+
+  return { pipe, abort };
+}
+
+export async function bunHandler() {
   const stream = await renderToReadableStream(
     <Entry />,
   );
