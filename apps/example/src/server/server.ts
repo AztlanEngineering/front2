@@ -8,7 +8,7 @@ const base = process.env.BASE || '/';
 
 // Cached production assets
 const templateHtml: string = isProduction
-  ? await readFile('dist/client/index.html', 'utf-8')
+  ? await readFile('dist/client/src/app/index.html', 'utf-8')
   : '';
 const ssrManifest: Record<string, any> | undefined = isProduction
   ? JSON.parse(await readFile('dist/client/.vite/ssr-manifest.json', 'utf-8'))

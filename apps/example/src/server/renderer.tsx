@@ -9,6 +9,8 @@ import Application from '../app/Application';
 // import { StaticRouter } from 'react-router-dom/server';
 //
 import { VercelRequest, VercelResponse } from '@vercel/node';
+import Extractor from './extractor';
+import htmlString from '../../dist/client/src/app/index.html?raw';
 
 export const config = {
   supportsResponseStreaming: true,
@@ -57,12 +59,17 @@ const DemoComponent = () => {
 
 
 const Entry = ({ lang}) => {
+  const extractor = new Extractor(htmlString)
+  const linkTags = extractor.getLinkTags()
+  const scriptTags = extractor.getScriptTags()
   return (
     <html lang={lang}>
       <head>
       <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>React Server Components</title>
+        {linkTags}
+        {scriptTags}
       </head>
       <body>
         <div id="root">
