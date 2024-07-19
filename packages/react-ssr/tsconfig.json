@@ -3,10 +3,12 @@
     "target": "esnext",
     "module": "esnext",
     "moduleDetection": "force",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
     "allowJs": true,
+    "declarationDir": "dist/types",
 
-    "moduleResolution": "bundler",
+
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,

@@ -143,9 +143,9 @@ const Renderer = new JSXRenderer(App, {
 //   );
 // }
 const handler = Renderer.render;
-async function GET() {
+async function GET(request) {
     new TextEncoder();
-    const stream = await handler();
+    const stream = await handler(request);
     // // Transform stream to uppercase
     // const transformStream = new TransformStream({
     //     async transform(chunk, controller) {

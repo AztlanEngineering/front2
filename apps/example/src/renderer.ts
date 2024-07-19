@@ -41,9 +41,9 @@ const Renderer = new JSXRenderer(Application, {
 
 export const handler = Renderer.render
 
-export async function GET() {
+export async function GET(request: VercelRequest) {
     const encoder = new TextEncoder();
-    const stream = await handler();
+    const stream = await handler(request);
 
     // // Transform stream to uppercase
     // const transformStream = new TransformStream({
