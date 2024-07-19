@@ -3,6 +3,9 @@ import path from 'path'
 import react from "@vitejs/plugin-react-swc";
 import swc from "unplugin-swc";
 import config from "./swc.ts"
+import {browserslistToTargets} from 'lightningcss';
+import browserslist from 'browserslist';
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +25,21 @@ export default defineConfig({
       },
       //external: ['fsevents'],
     },
+    cssMinify: 'lightningcss'
   },
+  // css: {
+  //   transformer: 'lightningcss',
+  //   lightningcss: {
+  //     targets: browserslistToTargets(browserslist())
+  //   }
+  // },
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       // additionalData: `@import "./src/styles/variables.scss";` // Optional: to import global variables, mixins, etc.
+  //     }
+  //   }
+  // }
   // resolve: {
   //   alias: {
   //     '@': path.resolve(__dirname, 'src'),

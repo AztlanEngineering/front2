@@ -8,20 +8,20 @@
     "/assets/react-CHdo91hT.svg"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react-jsx-runtime.production.min.js?commonjs-exports": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react.production.min.js?commonjs-exports": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/index.js?commonjs-module": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/react/jsx-runtime.js?commonjs-module": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "\u0000/home/adrian/code/aztlan/front2/node_modules/scheduler/cjs/scheduler.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
@@ -48,20 +48,20 @@
   ],
   "../../node_modules/react-dom/server.browser.js": [],
   "../../node_modules/react/cjs/react-jsx-runtime.production.min.js": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "../../node_modules/react/cjs/react.production.min.js": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "../../node_modules/react/index.js": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "../../node_modules/react/jsx-runtime.js": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "../../node_modules/scheduler/cjs/scheduler.production.min.js": [
     "/assets/react-CHdo91hT.svg"
@@ -72,9 +72,9 @@
   "index.html": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "src/app/Application.css": [
-    "/assets/Application-CYEYQ4T_.js",
-    "/assets/Application-Bx9V9zN2.css"
+  "src/app/Application.scss": [
+    "/assets/Application-DDYdoDON.js",
+    "/assets/Application-DgCNbW2k.css"
   ],
   "src/app/Application.tsx": [
     "/assets/react-CHdo91hT.svg"

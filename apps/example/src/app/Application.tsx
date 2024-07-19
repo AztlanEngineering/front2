@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
-import './Application.css'
+import './Application.scss'
 import type { Extractor }from '../server/extractor'
 
 type Props = {
@@ -46,6 +46,11 @@ export const InnerApp = () => {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+          <div className="grid container">
+            <div className="span-7">7</div>
+            <div className="span-1">1</div>
+            <div className="span-1">4</div>
+          </div>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR2
           Change here 9        </p>
