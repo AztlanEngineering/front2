@@ -1,5 +1,11 @@
 # @aztlan/react-ssr
 
+## 4.0.0-experimental.6
+
+### Patch Changes
+
+- 4ade30c: -
+
 ## 4.0.0-experimental.5
 
 ### Patch Changes
