@@ -6,19 +6,20 @@ import type { Extractor }from '../server/extractor'
 
 type Props = {
   lang?: string
-  extractor?: Extractor
+  scriptTags: string
+  linkTags: string
 }
 
-function App({ lang= 'en', extractor}: Props) {
+function App({ lang= 'en', scriptTags, linkTags}: Props) {
 
   return (
     <html lang={lang}>
       <head>
-      <meta charset="UTF-8" />
+      <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>React Server Components</title>
-        {extractor?.getLinkTags()}
-        {extractor?.getScriptTags()}
+        {scriptTags}
+        {linkTags}
       </head>
       <body>
         <div id="root">

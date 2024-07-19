@@ -1,3 +1,7 @@
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production_min = {};
@@ -38,6 +42,7 @@ react_production_min.useMemo=function(a,b){return U.current.useMemo(a,b)};react_
 }
 
 var reactExports = react.exports;
+const React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
 /**
  * @license React
@@ -57,4 +62,112 @@ function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&
 
 var jsxRuntimeExports = jsxRuntime.exports;
 
-export { jsxRuntimeExports as j, reactExports as r };
+const reactLogo = "/assets/react-CHdo91hT.svg";
+
+const viteLogo = "/vite.svg";
+
+function App({ lang = 'en', scriptTags, linkTags }) {
+    return /*#__PURE__*/ jsxRuntimeExports.jsxs("html", {
+        lang: lang,
+        children: [
+            /*#__PURE__*/ jsxRuntimeExports.jsxs("head", {
+                children: [
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("meta", {
+                        charSet: "UTF-8"
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("meta", {
+                        name: "viewport",
+                        content: "width=device-width, initial-scale=1.0"
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("title", {
+                        children: "React Server Components"
+                    }),
+                    scriptTags,
+                    linkTags
+                ]
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsx("body", {
+                children: /*#__PURE__*/ jsxRuntimeExports.jsx("div", {
+                    id: "root",
+                    children: /*#__PURE__*/ jsxRuntimeExports.jsx(InnerApp, {})
+                })
+            })
+        ]
+    });
+}
+const InnerApp = ()=>{
+    const [count, setCount] = reactExports.useState(0);
+    return /*#__PURE__*/ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, {
+        children: [
+            /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
+                children: [
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
+                        href: "https://vitejs.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
+                            src: viteLogo,
+                            className: "logo",
+                            alt: "Vite logo"
+                        })
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsx("a", {
+                        href: "https://react.dev",
+                        target: "_blank",
+                        children: /*#__PURE__*/ jsxRuntimeExports.jsx("img", {
+                            src: reactLogo,
+                            className: "logo react",
+                            alt: "React logo"
+                        })
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsx("h1", {
+                children: "Vite + React"
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
+                className: "card",
+                children: [
+                    /*#__PURE__*/ jsxRuntimeExports.jsxs("button", {
+                        onClick: ()=>setCount((count)=>count + 1),
+                        children: [
+                            "count is ",
+                            count
+                        ]
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsxs("div", {
+                        className: "grid container",
+                        children: [
+                            /*#__PURE__*/ jsxRuntimeExports.jsx("div", {
+                                className: "span-7",
+                                children: "7"
+                            }),
+                            /*#__PURE__*/ jsxRuntimeExports.jsx("div", {
+                                className: "span-1",
+                                children: "1"
+                            }),
+                            /*#__PURE__*/ jsxRuntimeExports.jsx("div", {
+                                className: "span-1",
+                                children: "4"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsxRuntimeExports.jsxs("p", {
+                        children: [
+                            "Edit ",
+                            /*#__PURE__*/ jsxRuntimeExports.jsx("code", {
+                                children: "src/App.jsx"
+                            }),
+                            " and save to test HMR2 Change here 9        "
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsxRuntimeExports.jsx("p", {
+                className: "read-the-docs",
+                children: "Click on the Vite and React logos to learn more"
+            })
+        ]
+    });
+};
+
+export { App as A, InnerApp as I, React as R, jsxRuntimeExports as j, reactExports as r };

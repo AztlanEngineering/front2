@@ -1,20 +1,19 @@
+import { useState } from 'react';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
-import React, { useState } from 'react';
-import { renderToReadableStream } from 'react-dom/server.browser';
-import { parseDocument } from 'htmlparser2';
+import { JSXRenderer } from '@aztlan/react-ssr';
 
 const reactLogo = "/assets/react-CHdo91hT.svg";
 
 const viteLogo = "/vite.svg";
 
-function App({ lang = 'en', extractor }) {
+function App({ lang = 'en', scriptTags, linkTags }) {
     return /*#__PURE__*/ jsxs("html", {
         lang: lang,
         children: [
             /*#__PURE__*/ jsxs("head", {
                 children: [
                     /*#__PURE__*/ jsx("meta", {
-                        charset: "UTF-8"
+                        charSet: "UTF-8"
                     }),
                     /*#__PURE__*/ jsx("meta", {
                         name: "viewport",
@@ -23,8 +22,8 @@ function App({ lang = 'en', extractor }) {
                     /*#__PURE__*/ jsx("title", {
                         children: "React Server Components"
                     }),
-                    extractor?.getLinkTags(),
-                    extractor?.getScriptTags()
+                    scriptTags,
+                    linkTags
                 ]
             }),
             /*#__PURE__*/ jsx("body", {
@@ -111,98 +110,39 @@ const InnerApp = ()=>{
     });
 };
 
-/**
- * Parses an HTML string to extract and convert script and link tags to React.createElement calls.
- */ class Extractor {
-    document;
-    constructor(html){
-        this.document = parseDocument(html);
-    }
-    getElementsByTagName(tagName) {
-        const elements = [];
-        const stack = [
-            this.document
-        ];
-        while(stack.length){
-            const node = stack.pop();
-            if (!node) continue;
-            if (node.type === 'tag' && node.name === tagName) {
-                elements.push(node);
-            }
-            // Check for script tags specifically
-            if (node.type === 'script' && tagName === 'script') {
-                elements.push(node);
-            }
-            if (node.children) {
-                stack.push(...node.children);
-            }
-        }
-        console.log(`Found ${elements.length} <${tagName}> tags`);
-        return elements;
-    }
-    convertToReactElement(element) {
-        const props = {};
-        for (const [key, value] of Object.entries(element.attribs)){
-            props[key] = value;
-        }
-        return React.createElement(element.name, props);
-    }
-    getLinkTags() {
-        const linkElements = this.getElementsByTagName('link');
-        return linkElements.map(this.convertToReactElement);
-    }
-    getScriptTags() {
-        const scriptElements = this.getElementsByTagName('script');
-        return scriptElements.map(this.convertToReactElement);
-    }
-}
+const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/Application-B10T6h3f.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/Application-DgCNbW2k.css\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-CCDShdbh.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
 
-const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/Application-DDYdoDON.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/Application-DgCNbW2k.css\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-CCDShdbh.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
-
-// [REF 1.1]
 const config = {
     supportsResponseStreaming: true
 };
-const Entry = App;
-// export default async function handler(req: VercelRequest, res: VercelResponse) {
-//   // res.socket.on('error', (error) => {
-//   //   console.error('Fatal', error);
-//   // });
+const Renderer = new JSXRenderer(App, {
+    htmlString
+});
+// const DemoComponent = () => {
+//   const LazyButton = React.lazy(async () => {
+//     await new Promise(resolve => setTimeout(resolve, 0));
 //
-//   // Render React component to pipeable stream
-//   const { pipe, abort } = renderToPipeableStream(
-//     <Entry />,
-//     {
-//       onShellReady() {
-//         res.statusCode = 200;
-//         res.setHeader('Content-Type', 'text/html');
-//         pipe(res);
-//       },
-//       onErrorShell(error) {
-//         res.statusCode = 500;
-//         res.send(
-//           `<!doctype html><p>An error occurred:</p><pre>${error.message}</pre>`
-//         );
-//       },
+//     return {
+//       default: () => <button>Click me</button>,
 //     }
+//   });
+//
+//   useEffect(() => {
+//     console.log('mounted');
+//   }, []);
+//
+//   return (
+//     <div>
+//       <React.Suspense fallback={<>Waitttt</>}>
+//         <LazyButton onClick={() => alert('clicked')} />
+//       </React.Suspense>
+//     </div>
 //   );
-//   // const stream = await renderToReadableStream(
-//   //   <Entry />,
-//   // );
-//
-//   // let text = '';
-//   // let numChunks = 0;
-//   // for await (const chunk of stream) {
-//   //   text += new TextDecoder().decode(chunk);
-//   //   numChunks++;
-//   //   console.log('chunk', numChunks, text.length, text);
-//   // }
-//
-//   return { pipe, abort };
 // }
+const handler = Renderer.render;
 async function GET() {
     new TextEncoder();
-    const stream = await bunHandler();
+    const stream = await handler();
     // // Transform stream to uppercase
     // const transformStream = new TransformStream({
     //     async transform(chunk, controller) {
@@ -216,20 +156,5 @@ async function GET() {
         }
     });
 }
-async function bunHandler() {
-    const extractor = new Extractor(htmlString);
-    const stream = await renderToReadableStream(/*#__PURE__*/ jsx(Entry, {
-        lang: 'en',
-        extractor: extractor
-    }));
-    // let text = '';
-    // let numChunks = 0;
-    // for await (const chunk of stream) {
-    //   text += new TextDecoder().decode(chunk);
-    //   numChunks++;
-    //   console.log('chunk', numChunks, text.length, text);
-    // }
-    return stream;
-}
 
-export { GET, bunHandler, config };
+export { GET, config, handler };

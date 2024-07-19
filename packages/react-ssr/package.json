@@ -1,0 +1,25 @@
+{
+  "name": "@aztlan/react-ssr",
+  "module": "dist/index.js",
+  "version": "4.0.0-alpha.0",
+  "types": "dist/types/index.d.ts",
+  "type": "module",
+  "bin": {
+    "ssr-server": "src/server/server.ts",
+    "ssr-watch": "src/server/watcher.ts"
+  },
+  "scripts":{
+    "build": "bun build ./src/renderer/*.ts --outdir ./dist --external '*'",
+    "type-check": "tsc",
+    "start": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react-dom": "^18.3.1"
+  }
+}

@@ -10,13 +10,14 @@
     "dev": "vite",
     "build": "bun run build:client && bun run build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
-    "build:server": "vite build --ssr src/server/renderer.tsx --outDir api",
-    "preview": "NODE_ENV=production bun run --inspect src/server/server.ts",
-    "serve:ssr": "bun run src/server/watcher.ts",
+    "build:server": "vite build --ssr src/server/renderer.ts --outDir api",
+    "preview": "bun run build && ssr-server api/renderer.js",
+    "serve:ssr": "ssr-watch",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview:old": "vite preview"
   },
   "dependencies": {
+    "@aztlan/react-ssr": "../../packages/react-ssr",
     "htmlparser2": "^9.1.0",
     "react": "^18.3",
     "react-dom": "^18.3"
