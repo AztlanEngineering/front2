@@ -1,7 +1,7 @@
 {
   "name": "@aztlan/react-ssr",
   "module": "dist/index.js",
-  "version": "4.0.0-experimental.6",
+  "version": "4.0.0-experimental.7",
   "types": "dist/types/index.d.ts",
   "type": "module",
   "bin": {
@@ -10,8 +10,8 @@
   },
   "scripts": {
     "compile": "bun build ./src/renderer/*.ts --outdir ./dist --external '*'",
-    "emit:types":"tsc src/*.ts --emitDeclarationOnly --declaration --declarationDir dist/types",
-    "build":"bun run compile",
+    "emit:types": "tsc src/*.ts --emitDeclarationOnly --declaration --declarationDir dist/types",
+    "build": "bun run compile",
     "type-check": "tsc",
     "start": "node dist/index.js"
   },
