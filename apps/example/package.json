@@ -11,8 +11,9 @@
     "build": "bun run build:client && bun run build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/renderer.ts --outDir api",
-    "preview": "bun run build && ssr-server api/renderer.js",
-    "serve:ssr": "ssr-watch",
+    "preview": "bun run build && bun run ssr:serve",
+    "ssr:serve": "ssr-server api/renderer.js",
+    "ssr:watch": "ssr-watch",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview:old": "vite preview"
   },

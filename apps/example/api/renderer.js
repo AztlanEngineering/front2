@@ -97,7 +97,7 @@ const InnerApp = ()=>{
                             /*#__PURE__*/ jsx("code", {
                                 children: "src/App.jsx"
                             }),
-                            " and save to test HMR2 Change here 9        "
+                            " and save to test HMR2 Change here 14        "
                         ]
                     })
                 ]

@@ -2,6 +2,8 @@
 
 import { spawn, execSync, ChildProcess } from 'child_process';
 import { watch } from 'fs';
+import { resolve } from 'path';
+import { parseArgs } from 'util';
 
 let serverProcess: ChildProcess | null = null;
 
@@ -72,16 +74,34 @@ const startBuild = () => {
 const debouncedStartServer = debounce(startServer, 200);
 const debouncedStartBuild = debounce(startBuild, 200);
 
-// Watch for changes in server files
-watch('src/server', { recursive: true }, (eventType, filename) => {
-  console.log(`Server file changed: ${filename}`);
-  debouncedStartServer();
+// Parse command-line arguments using util.parseArgs
+const { values } = parseArgs({
+  args: Bun.argv.slice(2),
+  options: {
+    'dir': {
+      type: 'string',
+      multiple: true,
+      default: [resolve(process.cwd(), './src')],
+      alias: 'd',
+    },
+  },
+  strict: true,
+  allowPositionals: true,
 });
 
-// Watch for changes in client files
-watch('src/app', { recursive: true }, (eventType, filename) => {
-  console.log(`Client file changed: ${filename}`);
-  debouncedStartBuild();
+// Resolve all watch directories
+const watchDirs = values['dir'].map((dir: string) => resolve(process.cwd(), dir));
+
+// Watch for changes in the provided directories
+watchDirs.forEach((dir) => {
+  watch(dir, { recursive: true }, (eventType, filename) => {
+    console.log(`File changed in ${dir}: ${filename}`);
+    if (dir.includes('server')) {
+      debouncedStartServer();
+    } else {
+      debouncedStartBuild();
+    }
+  });
 });
 
 // Start the initial server

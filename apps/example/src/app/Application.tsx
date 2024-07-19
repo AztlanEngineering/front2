@@ -54,7 +54,7 @@ export const InnerApp = () => {
           </div>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR2
-          Change here 9        </p>
+          Change here 14        </p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
