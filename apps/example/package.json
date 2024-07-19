@@ -23,6 +23,7 @@
     "react-dom": "^18.3"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.7",
     "@swc/core": "^1.7.0-nightly-20240714.1",
     "@swc/helpers": "^0.5.12",
     "@swc/plugin-relay": "^2.0.11",

@@ -100,7 +100,6 @@ const InnerApp = ()=>{
     document;
     constructor(html){
         this.document = parseDocument(html);
-        console.log(this.document);
     }
     getElementsByTagName(tagName) {
         const elements = [];
