@@ -17,7 +17,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        server: path.resolve(__dirname, 'src/server/renderer.ts'),
+        //server: path.resolve(__dirname, 'src/renderer.ts'),
       },
       output: {
         format: 'esm',

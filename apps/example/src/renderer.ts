@@ -1,7 +1,7 @@
 import React from 'react';
-import Application from '../app/Application';
+import Application from './app/Application';
 
-import htmlString from '../../dist/client/index.html?raw';
+import htmlString from '../dist/client/index.html?raw';
 // import { StaticRouter } from 'react-router-dom/server';
 //
 import { VercelRequest, VercelResponse } from '@vercel/node';
