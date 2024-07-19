@@ -1,7 +1,7 @@
 {
   "name": "@aztlan/react-ssr",
   "module": "dist/index.js",
-  "version": "4.0.0-experimental.1",
+  "version": "4.0.0-experimental.2",
   "types": "dist/types/index.d.ts",
   "type": "module",
   "bin": {

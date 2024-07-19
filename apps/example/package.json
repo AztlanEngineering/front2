@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "0.0.2-experimental.0",
+  "version": "0.0.2-experimental.1",
   "type": "module",
   "browserslist": [
     "last 2 Chrome versions"
@@ -17,7 +17,7 @@
     "preview:old": "vite preview"
   },
   "dependencies": {
-    "@aztlan/react-ssr": "4.0.0-experimental.1",
+    "@aztlan/react-ssr": "4.0.0-experimental.2",
     "htmlparser2": "^9.1.0",
     "react": "^18.3",
     "react-dom": "^18.3"
