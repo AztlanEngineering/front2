@@ -4,15 +4,15 @@ export default {
   jsc: {
     experimental: {
       plugins: [
-        [
-          "@swc/plugin-relay",
-          {
-            rootDir: __dirname,
-            artifactDirectory: "src/__generated__",
-            language: "typescript",
-            eagerEsModules: true,
-          },
-        ],
+        // [
+        //   "@swc/plugin-relay",
+        //   {
+        //     rootDir: __dirname,
+        //     artifactDirectory: "src/__generated__",
+        //     language: "typescript",
+        //     eagerEsModules: true,
+        //   },
+        // ],
         // // Or if you want to use multiple projects
         // [
         //   "@swc/plugin-relay",
