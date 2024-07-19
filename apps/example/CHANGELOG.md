@@ -1,5 +1,13 @@
 # example
 
+## 0.0.2-experimental.2
+
+### Patch Changes
+
+- beebc29: another
+- Updated dependencies [beebc29]
+  - @aztlan/react-ssr@4.0.0-experimental.3
+
 ## 0.0.2-experimental.1
 
 ### Patch Changes
