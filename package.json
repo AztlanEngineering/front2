@@ -1,5 +1,6 @@
 {
   "name": "front2",
+  "version":"4.0.0-alpha.0",
   "module": "index.ts",
   "workspaces": [
     "packages/*",

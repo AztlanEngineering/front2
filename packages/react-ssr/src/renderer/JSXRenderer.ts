@@ -8,6 +8,7 @@ interface RendererOptions {
   htmlString?: string;
 }
 
+// This class is responsible for rendering a React component to a readable stream.
 export default class Renderer {
   private Component: React.ComponentType<any>;
   private options: RendererOptions;
