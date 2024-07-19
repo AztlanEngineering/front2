@@ -61,13 +61,13 @@ const startServer = async () => {
 };
 
 const startBuild = () => {
-  const buildProcess = spawn('bun', ['run', 'build'], { stdio: 'inherit' });
-
-  buildProcess.on('close', (code) => {
-    if (code !== null && code !== 0) {
-      console.error(`Build process exited with code ${code}`);
-    }
-  });
+  // const buildProcess = spawn('bun', ['run', 'build'], { stdio: 'inherit' });
+  //
+  // buildProcess.on('close', (code) => {
+  //   if (code !== null && code !== 0) {
+  //     console.error(`Build process exited with code ${code}`);
+  //   }
+  // });
   startServer();
 };
 

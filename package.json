@@ -7,6 +7,9 @@
     "apps/*"
   ],
   "type": "module",
+  "scripts":{
+    "version":"bun changeset version && bun changeset tag"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@vercel/node": "^3.2.2"
