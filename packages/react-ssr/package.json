@@ -10,8 +10,9 @@
   },
   "scripts": {
     "compile": "bun build ./src/renderer/*.ts --outdir ./dist --external '*'",
-    "emit:types": "tsc src/*.ts --emitDeclarationOnly --declaration --declarationDir dist/types",
-    "build": "bun run compile",
+    "emit:types2": "tsc src/renderer/*.ts --emitDeclarationOnly --declaration --declarationDir dist/types --showConfig",
+    "emit:types": "tsc -p tsconfig.build.json --showConfig",
+    "build": "bun run compile && bun run emit:types",
     "type-check": "tsc",
     "start": "node dist/index.js"
   },
@@ -19,7 +20,7 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "react-dom": "^18.3.1"

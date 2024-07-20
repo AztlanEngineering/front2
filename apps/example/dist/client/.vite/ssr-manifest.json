@@ -1,26 +1,26 @@
 {
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react-dom/cjs/react-dom.production.min.js?commonjs-exports": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react-dom/cjs/react-dom.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react-dom/index.js?commonjs-module": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react-dom/index.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react-jsx-runtime.production.min.js?commonjs-exports": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react/cjs/react-jsx-runtime.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react/cjs/react.production.min.js?commonjs-exports": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react/cjs/react.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react/index.js?commonjs-module": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react/index.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/react/jsx-runtime.js?commonjs-module": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/react/jsx-runtime.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/scheduler/cjs/scheduler.production.min.js?commonjs-exports": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/scheduler/cjs/scheduler.production.min.js?commonjs-exports": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "\u0000/home/adrian/code/aztlan/front2/node_modules/scheduler/index.js?commonjs-module": [
+  "\u0000/home/adrian/code/aztlan/front2/apps/example/node_modules/scheduler/index.js?commonjs-module": [
     "/assets/react-CHdo91hT.svg"
   ],
   "\u0000vite/modulepreload-polyfill.js": [
@@ -29,34 +29,34 @@
   "\u0000vite:asset:public/vite.svg": [
     "/assets/react-CHdo91hT.svg"
   ],
-  "../../node_modules/react-dom/cjs/react-dom.production.min.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react-dom/client.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react-dom/index.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react/cjs/react-jsx-runtime.production.min.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react/cjs/react.production.min.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react/index.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/react/jsx-runtime.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/scheduler/cjs/scheduler.production.min.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
-  "../../node_modules/scheduler/index.js": [
-    "/assets/react-CHdo91hT.svg"
-  ],
   "index.html": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react-dom/cjs/react-dom.production.min.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react-dom/client.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react-dom/index.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react/cjs/react-jsx-runtime.production.min.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react/cjs/react.production.min.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react/index.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/react/jsx-runtime.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/scheduler/cjs/scheduler.production.min.js": [
+    "/assets/react-CHdo91hT.svg"
+  ],
+  "node_modules/scheduler/index.js": [
     "/assets/react-CHdo91hT.svg"
   ],
   "src/app/Application.scss": [

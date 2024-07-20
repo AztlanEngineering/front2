@@ -4,7 +4,7 @@ import Application from './app/Application';
 import htmlString from '../dist/client/index.html?raw';
 // import { StaticRouter } from 'react-router-dom/server';
 //
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { JSXRenderer } from '@aztlan/react-ssr';
 
 export const config = {
@@ -15,9 +15,9 @@ const Renderer = new JSXRenderer(Application, {
   htmlString,
 })
 
-// const DemoComponent = () => {
+// const DemoComponent = ({ timeout=500 }) => {
 //   const LazyButton = React.lazy(async () => {
-//     await new Promise(resolve => setTimeout(resolve, 0));
+//     await new Promise(resolve => setTimeout(resolve, timeout));
 //
 //     return {
 //       default: () => <button>Click me</button>,

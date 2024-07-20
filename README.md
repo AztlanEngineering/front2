@@ -24,3 +24,8 @@ This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) 
     - renderer is compiled on client build, should limit client build to some files, or refactor main folder with two entries. -> otherwise renderer has import not found
     - dev server and watcher not pipeing properly stdout
 
+Changeset
+- `bun changeset`
+- `bun changeset version`
+- `bun changeset tag`
+- `bun changeset publish`

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState, createElement } from 'react';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
-import { JSXRenderer } from '@aztlan/react-ssr';
+import { renderToReadableStream } from 'react-dom/server.browser';
+import { parseDocument } from 'htmlparser2';
 
 const reactLogo = "/assets/react-CHdo91hT.svg";
 
@@ -115,15 +116,90 @@ const InnerApp = ()=>{
 
 const htmlString = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Vite + React</title>\n    <script type=\"module\" crossorigin src=\"/main.js\"></script>\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/main-BHJYjto3.css\">\n  </head>\n  <body>\n    <div id=\"root\"><!--app-html--></div>\n  </body>\n</html>\n";
 
+// src/renderer/Extractor.ts
+class Extractor {
+    document;
+    constructor(html){
+        this.document = parseDocument(html);
+    }
+    getElementsByTagName(tagName) {
+        const elements = [];
+        const stack = [
+            this.document
+        ];
+        while(stack.length){
+            const node = stack.pop();
+            if (!node) continue;
+            if (node.type === "tag" && node.name === tagName) {
+                elements.push(node);
+            }
+            if (node.type === "script" && tagName === "script") {
+                elements.push(node);
+            }
+            if (node.children) {
+                stack.push(...node.children);
+            }
+        }
+        console.log(`Found ${elements.length} <${tagName}> tags`);
+        return elements;
+    }
+    convertToReactElement(element) {
+        const props = {};
+        for (const [key, value] of Object.entries(element.attribs)){
+            props[key] = value;
+        }
+        return /*#__PURE__*/ React.createElement(element.name, props);
+    }
+    getLinkTags() {
+        const linkElements = this.getElementsByTagName("link");
+        return linkElements.map(this.convertToReactElement);
+    }
+    getScriptTags() {
+        const scriptElements = this.getElementsByTagName("script");
+        return scriptElements.map(this.convertToReactElement);
+    }
+}
+var Extractor_default = Extractor;
+
+// src/renderer/JSXRenderer.ts
+let Renderer$1 = class Renderer {
+    Component;
+    options;
+    locale;
+    messages;
+    extractor;
+    constructor(Component, options = {}){
+        this.Component = Component;
+        this.options = options;
+        this.prepareLocale = this.prepareLocale.bind(this);
+        this.render = this.render.bind(this);
+        this.extractor = this.options.htmlString ? new Extractor_default(this.options.htmlString) : undefined;
+    }
+    async prepareLocale(header) {
+        if (this.options.loadMessages) {
+            this.locale = header ? header.slice(0, 2) : this.options.defaultLocale || "en";
+        }
+    }
+    async render(req) {
+        await this.prepareLocale(req.headers.get("accept-language") || undefined);
+        const jsx = /*#__PURE__*/ createElement(this.Component, {
+            locale: this.locale,
+            scriptTags: this.extractor?.getScriptTags(),
+            linkTags: this.extractor?.getLinkTags()
+        });
+        return renderToReadableStream(jsx);
+    }
+};
+
 const config = {
     supportsResponseStreaming: true
 };
-const Renderer = new JSXRenderer(App, {
+const Renderer = new Renderer$1(App, {
     htmlString
 });
-// const DemoComponent = () => {
+// const DemoComponent = ({ timeout=500 }) => {
 //   const LazyButton = React.lazy(async () => {
-//     await new Promise(resolve => setTimeout(resolve, 0));
+//     await new Promise(resolve => setTimeout(resolve, timeout));
 //
 //     return {
 //       default: () => <button>Click me</button>,

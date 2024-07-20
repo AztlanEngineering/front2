@@ -6,12 +6,9 @@
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "allowJs": true,
-    "declarationDir": "dist/types",
 
-
-    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "noEmit": false,
 
     "strict": true,
     "skipLibCheck": true,
@@ -20,5 +17,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
