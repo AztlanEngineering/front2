@@ -48,14 +48,13 @@ export const InnerApp = () => {
           count is {count}
         </button>
           <div className="grid container">
-            <div className="span-7">7</div>
+          <div className="span-2">2</div>
             <div className="span-1">1</div>
             <div className="span-1">4</div>
           </div>
-          <p>This page is us988889</p>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR2
-          Change here 14        </p>
+          Edit <code>src/App.jsx</code> and save to test
+        </p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
